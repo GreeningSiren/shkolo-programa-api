@@ -64,13 +64,15 @@ function mergeLessons(lessons) {
     if (sameSubject && sameTeacher && sameRoom && gap >= 0 && gap <= MERGE_GAP_MINUTES && !last.isFreeLesson && !l.isFreeLesson) {
       last.end = l.end;
       last.endM = l.endM;
-      console.log('[DEBUG] Merged lesson blocks:', { 
-        subject: last.subject, 
-        teacher: last.teacher,
-        room: last.room,
-        gap: gap,
-        newEnd: last.end 
-      });
+      if (process.env.DEBUG) {
+        console.log('[DEBUG] Merged lesson blocks:', { 
+          subject: last.subject, 
+          teacher: last.teacher,
+          room: last.room,
+          gap: gap,
+          newEnd: last.end 
+        });
+      }
     } else {
       merged.push({ ...l });
     }

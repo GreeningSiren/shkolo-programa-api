@@ -2,7 +2,6 @@ import 'dotenv/config';
 import fetch from 'node-fetch';
 import { writeFile, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
-import path from 'path';
 
 const API_BASE = 'https://api.shkolo.bg/v1';
 const CONFIG_FILE = 'shkolo-config.json';
@@ -203,7 +202,7 @@ async function getConfig() {
     pupil_id: config?.pupil_id || process.env.PUPIL_ID,
     class_year_id: config?.class_year_id || process.env.CLASS_YEAR_ID,
     email: config?.email || process.env.SHKOLO_USERNAME,
-    password: config?.password || process.env.SHKOLO_PASSWORD
+    passwordConfigured: Boolean(config?.password || process.env.SHKOLO_PASSWORD)
   };
 }
 
