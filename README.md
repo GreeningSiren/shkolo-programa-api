@@ -1,5 +1,11 @@
 # shkolo-programa-api
 
+> [!WARNING]  
+> Ne spodelqjte s nikoi shkolo-config.json tuj kato sadarzhava token i imeil i parola
+
+# Ne mi se zanimava da promenq readmeto taka che e leko greshno
+# Runkane na survara za 1vi put shte ima setup za login i parola ot kudeto se vzima token, pupil id i class year id
+
 Извличане на седмичната програма (HTML снипет) от Школо и запазване в локален файл. Също така предоставя REST API endpoints за получаване на следващ час и сурови данни от програмата.
 
 > ВАЖНО: Използвайте само с вашия собствен акаунт и спазвайте Условията за ползване на платформата. Не вкарвайте или споделяйте идентификационни данни в кода.
