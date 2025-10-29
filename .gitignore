@@ -11,6 +11,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Configuration files
+shkolo-config.json
+
 # Output files (schedule HTML files)
 schedule.html
 last_schedule.html
