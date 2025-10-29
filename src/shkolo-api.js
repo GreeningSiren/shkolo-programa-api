@@ -9,7 +9,6 @@ const CONFIG_FILE = 'shkolo-config.json';
 // In-memory cache for session
 let sessionCache = {
   api_token: null,
-  expires_at: 0,
   user_info: null,
   pupil_id: null,
   class_year_id: null
@@ -76,7 +75,6 @@ async function login(email, password) {
 
   // Cache session data
   sessionCache.api_token = data.api_token;
-  sessionCache.expires_at = Date.now() + (6 * 60 * 60 * 1000); // 6 hours
   sessionCache.user_info = data.users[0];
 
   console.log('[API] Login successful');
@@ -135,8 +133,8 @@ async function getSchedule(token, pupilId, date) {
  * Ensure we have a valid token
  */
 async function ensureValidToken(forceRefresh = false) {
-  // Check if we have a cached token that's still valid
-  if (!forceRefresh && sessionCache.api_token && Date.now() < sessionCache.expires_at) {
+  // If we have a cached token and not forcing refresh, use it
+  if (!forceRefresh && sessionCache.api_token) {
     return sessionCache.api_token;
   }
 
