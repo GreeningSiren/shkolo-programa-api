@@ -60,8 +60,8 @@ function mergeLessons(lessons) {
     const sameRoom = last.room && l.room && last.room === l.room;
     const gap = l.startM - last.endM;
     
-    // Only merge if subject, teacher AND room match, gap is small, and neither is free lesson
-    if (sameSubject && sameTeacher && sameRoom && gap >= 0 && gap <= MERGE_GAP_MINUTES && !last.isFreeLesson && !l.isFreeLesson) {
+    // Only merge if subject, teacher AND room match, gap is small
+    if (sameSubject && sameTeacher && sameRoom && gap >= 0 && gap <= MERGE_GAP_MINUTES) {
       last.end = l.end;
       last.endM = l.endM;
       if (process.env.DEBUG) {
