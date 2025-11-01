@@ -173,7 +173,7 @@ async function setupConfig(email, password) {
   const config = {
     email: email,
     password: password,
-    pupil_id: firstPupil.id.toString(),
+    pupil_id: firstPupil.id ? firstPupil.id.toString() : firstPupil.target_id.toString(),
     class_year_id: firstPupil.class_year_id.toString(),
     pupil_name: firstPupil.target_name,
     class_name: firstPupil.class_name,
