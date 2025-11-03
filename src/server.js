@@ -178,6 +178,7 @@ app.get('/sledvashtChas', async (req, res) => {
       checkTime = new Date(targetDate);
       checkTime.setHours(customHour, customMinute, 0, 0);
     } else {
+      checkTime.setDate(targetDate.getDate());
       checkTime.setHours(checkTime.getHours() + hourOffset);
       checkTime.setMinutes(checkTime.getMinutes() + minuteOffset);
     }
