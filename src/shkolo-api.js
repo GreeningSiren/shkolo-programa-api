@@ -256,6 +256,36 @@ async function apiRequest(endpoint, options = {}) {
       return await retryResponse.json();
     }
 
+    if (response.status >= 500 && response.status < 600) {
+      console.warn(`[API] Server error ${response.status}. Retrying once...`);
+  
+      // Изчакай малко, за да не се забие веднага пак
+      await new Promise(r => setTimeout(r, 1000));
+
+      const retryResponse = await fetch(url, {
+        ...options,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'Language': 'bg',
+          'User-Agent': 'Shkolo-app-Android/1.42.8',
+          ...options.headers
+        }
+      });
+
+      if (!retryResponse.ok) {
+        const errorText = await retryResponse.text().catch(() => '');
+        throw new Error(`API request failed after retry: ${retryResponse.status} ${errorText.slice(0, 200)}`);
+      }
+
+      try {
+        return await retryResponse.json();
+      } catch {
+        const text = await retryResponse.text().catch(() => '');
+        throw new Error(`Invalid JSON after retry: ${text.slice(0, 200)}`);
+      }
+    }
+
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`API request failed: ${response.status} ${errorText}`);
