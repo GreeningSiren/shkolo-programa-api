@@ -47,8 +47,30 @@ function mergeLessons(lessons) {
     .map(l => ({ ...l, startM: timeToMinutes(l.start), endM: timeToMinutes(l.end) }))
     .sort((a, b) => a.startM - b.startM);
 
+  const dedupedByWindow = [];
+  const exactWindowMap = new Map();
+
+  for (const lesson of lessonsWithMins) {
+    const windowKey = `${lesson.startM}:${lesson.endM}`;
+    const existing = exactWindowMap.get(windowKey);
+
+    if (!existing) {
+      exactWindowMap.set(windowKey, lesson);
+      dedupedByWindow.push(lesson);
+      continue;
+    }
+
+    if (existing.isFreeLesson && !lesson.isFreeLesson) {
+      exactWindowMap.set(windowKey, lesson);
+      const index = dedupedByWindow.indexOf(existing);
+      if (index !== -1) {
+        dedupedByWindow[index] = lesson;
+      }
+    }
+  }
+
   const merged = [];
-  for (const l of lessonsWithMins) {
+  for (const l of dedupedByWindow) {
     if (merged.length === 0) {
       merged.push({ ...l });
       continue;
