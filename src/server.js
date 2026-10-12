@@ -67,6 +67,11 @@ function mergeLessons(lessons) {
         dedupedByWindow[index] = lesson;
       }
     }
+    else if (!existing.isFreeLesson && lesson.isFreeLesson) {
+      if (!existing.room && lesson.room) {
+        existing.room = lesson.room;
+      }
+    }
   }
 
   const merged = [];
